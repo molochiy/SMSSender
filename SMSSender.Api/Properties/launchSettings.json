@@ -1,0 +1,29 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:62556/",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "SendSMS?msg=hello world&startDate=1/05/2018&endDate=1/06/2018",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "SMSSender.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "SendSMS?msg=hello world&startDate=1/05/2018&endDate=1/06/2018",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:62557/"
+    }
+  }
+}
