@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSSender.Api", "SMSSender.Api\SMSSender.Api.csproj", "{07577FC3-018A-42F3-AD90-968EA3CADC50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMSSender.Api", "SMSSender.Api\SMSSender.Api.csproj", "{07577FC3-018A-42F3-AD90-968EA3CADC50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSSender.Common", "SMSSender.Common\SMSSender.Common.csproj", "{4B154469-E3AF-48EC-AC78-4D878EA6A1E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSSender.Domain", "SMSSender.Domain\SMSSender.Domain.csproj", "{19BCE97C-2485-48A4-81A6-0416069238CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSSender.Persistence", "SMSSender.Persistence\SMSSender.Persistence.csproj", "{4E876F48-BB62-4F18-98FF-F28AEC59607A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{07577FC3-018A-42F3-AD90-968EA3CADC50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07577FC3-018A-42F3-AD90-968EA3CADC50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07577FC3-018A-42F3-AD90-968EA3CADC50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B154469-E3AF-48EC-AC78-4D878EA6A1E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B154469-E3AF-48EC-AC78-4D878EA6A1E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B154469-E3AF-48EC-AC78-4D878EA6A1E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B154469-E3AF-48EC-AC78-4D878EA6A1E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19BCE97C-2485-48A4-81A6-0416069238CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19BCE97C-2485-48A4-81A6-0416069238CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19BCE97C-2485-48A4-81A6-0416069238CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19BCE97C-2485-48A4-81A6-0416069238CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E876F48-BB62-4F18-98FF-F28AEC59607A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E876F48-BB62-4F18-98FF-F28AEC59607A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E876F48-BB62-4F18-98FF-F28AEC59607A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E876F48-BB62-4F18-98FF-F28AEC59607A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

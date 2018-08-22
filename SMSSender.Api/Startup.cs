@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SMSSender.Domain;
 
 namespace SMSSender.Api
 {
@@ -18,6 +19,7 @@ namespace SMSSender.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.RegisterDomainModule();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
