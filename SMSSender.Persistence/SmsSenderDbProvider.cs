@@ -2,6 +2,7 @@
 
 namespace SMSSender.Persistence
 {
+    // Db provider for repos
     public class SmsSenderDbProvider : IDbProvider<ISmsSenderDb>
     {
         public SmsSenderDbProvider()

@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Configuration;
+using System.Data.Entity;
 using SMSSender.Persistence.Entities;
 using SMSSender.Persistence.EntityConfigurations;
 
@@ -6,9 +7,9 @@ namespace SMSSender.Persistence
 {
     public class SmsSenderDb: DbContext, ISmsSenderDb
     {
-        private const string SmsSenderDbDefaultConnectionString = "Server=(localdb)\\mssqllocaldb;Database=SmsSenderDb;Trusted_Connection=True;MultipleActiveResultSets=true";
+        private const string SmsSenderDbName = "SmsSenderDb";
 
-        public SmsSenderDb(): base(SmsSenderDbDefaultConnectionString)
+        public SmsSenderDb() : base(ConfigurationManager.ConnectionStrings[SmsSenderDbName].ConnectionString)
         {
         }
 
