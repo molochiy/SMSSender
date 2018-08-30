@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dtos\SentSmsInfo.cs" />
+    <Compile Include="Dtos\SmsSendingStatus.cs" />
     <Compile Include="Dtos\UserOrder.cs" />
     <Compile Include="Models\SmsFinalStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

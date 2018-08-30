@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using SMSSender.Common.Exceptions;
 using SMSSender.Domain.Providers;
+using SMSSender.Entities.Dtos;
 using SMSSender.Entities.Models;
 using SMSSender.Persistence.Entities;
 using SMSSender.Persistence.Repositories;
@@ -26,9 +27,15 @@ namespace SMSSender.Domain.Services
             _smsProviderFactory = smsProviderFactory;
         }
 
-        public async Task SendSms(string msg, DateTime? startDate, DateTime? endDate, CancellationToken cancellationToken)
+        public async Task<IEnumerable<SmsSendingStatus>> SendSms(string msg, DateTime? startDate, DateTime? endDate, CancellationToken cancellationToken)
         {
             var phoneNumbers = await GetRelevantPhoneNumbers(startDate, endDate, cancellationToken).ConfigureAwait(false);
+
+            var tasks = phoneNumbers.Select(x => SendSms(msg, x, cancellationToken)).ToList();
+
+            await Task.WhenAll(tasks).ConfigureAwait(false);
+
+            return tasks.Select(x => x.Result);
         }
 
         public async Task UpdateSmsStatus(SmsFinalStatus finalStatus, CancellationToken cancellationToken)
@@ -71,10 +78,39 @@ namespace SMSSender.Domain.Services
             return query.Select(x => x.UserMobileNumber).ToListAsync(cancellationToken);
         }
 
-        private Task SendSms(string msg, string phoneNumber, CancellationToken cancellationToken)
+        private async Task<SmsSendingStatus> SendSms(string msg, string phoneNumber, CancellationToken cancellationToken)
         {
+            SmsSendingStatus smsSendingStatus = new SmsSendingStatus
+            {
+                To = phoneNumber
+            };
+
             var provider = _smsProviderFactory.CreateProvider(phoneNumber);
-            return provider.SendSms(msg, cancellationToken);
+
+            try
+            {
+                var sentSmsInfo = await provider.SendSms(msg, cancellationToken).ConfigureAwait(false);
+
+                _messageRepository.Add(new MessageEntity
+                {
+                    From = sentSmsInfo.From,
+                    To = sentSmsInfo.To,
+                    Message = msg,
+                    ExternalMessageId = sentSmsInfo.MsgId,
+                    Status = sentSmsInfo.Status
+                });
+
+                await _messageRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+                smsSendingStatus.Status = sentSmsInfo.Status;
+                smsSendingStatus.MsgId = sentSmsInfo.MsgId;
+            }
+            catch (Exception e)
+            {
+                smsSendingStatus.ExceptionMessage = e.Message;
+            }
+
+            return smsSendingStatus;
         }
     }
 }

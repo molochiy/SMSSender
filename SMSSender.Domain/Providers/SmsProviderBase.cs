@@ -1,8 +1,8 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using SMSSender.Common.Config;
+using SMSSender.Entities.Dtos;
 using SMSSender.Entities.Models;
 
 namespace SMSSender.Domain.Providers
@@ -12,11 +12,14 @@ namespace SMSSender.Domain.Providers
         private string CallbackUrl { get; } =
             ConfigurationManager.AppSettings[ConfigKeyConstants.SmsProviderCallbackUrl];
 
+        protected string SenderPhoneNumber { get; } =
+            ConfigurationManager.AppSettings[ConfigKeyConstants.SmsProviderSenderPhoneNumber];
+
         protected abstract SmsFinalStatus GetFinalStatus();
 
-        protected abstract Task Send(string msg, CancellationToken cancellationToken);
+        protected abstract Task<SentSmsInfo> Send(string msg, CancellationToken cancellationToken);
 
-        public Task SendSms(string msg, CancellationToken cancellationToken)
+        public Task<SentSmsInfo> SendSms(string msg, CancellationToken cancellationToken)
         {
             return Send(msg, cancellationToken);
 

@@ -21,7 +21,8 @@ namespace SMSSender.Api.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> SendSms(string msg, CancellationToken cancellationToken, DateTime? startDate = null, DateTime? endDate = null)
         {
-            string result = await Task.FromResult($"Message [{msg}] sent for users between {startDate} and {endDate}.")
+            var result = await _smsSenderService
+                .SendSms(msg, startDate, endDate, cancellationToken)
                 .ConfigureAwait(true);
 
             return Ok(result);
@@ -36,3 +37,4 @@ namespace SMSSender.Api.Controllers
         }
     }
 }
+
