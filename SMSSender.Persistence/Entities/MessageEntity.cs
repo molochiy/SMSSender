@@ -1,4 +1,5 @@
-﻿using SMSSender.Common.Enums;
+﻿using System;
+using SMSSender.Common.Enums;
 
 namespace SMSSender.Persistence.Entities
 {
@@ -13,5 +14,7 @@ namespace SMSSender.Persistence.Entities
         public MessageStatus Status { get; set; }
 
         public string ExternalMessageId { get; set; }
+
+        public DateTime? TimeOfSending { get; set; }
     }
 }

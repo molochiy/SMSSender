@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SMSSender.Domain.Dtos
+namespace SMSSender.Entities.Dtos
 {
     public class UserOrder
     {

@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using SMSSender.Domain.Dtos;
+using SMSSender.Entities.Dtos;
 using SMSSender.Persistence.Repositories;
 
 namespace SMSSender.Domain.Services
@@ -14,12 +14,12 @@ namespace SMSSender.Domain.Services
 
         public UserOrdersService(IUserOrdersRepository userOrdersRepository)
         {
-            this._userOrdersRepository = userOrdersRepository;
+            _userOrdersRepository = userOrdersRepository;
         }
 
         public Task<List<UserOrder>> GetAllUsersOrders(CancellationToken cancellationToken)
         {
-            return this._userOrdersRepository.Get()
+            return _userOrdersRepository.Get()
                 .Select(x => new UserOrder
                 {
                     Id = x.Id,

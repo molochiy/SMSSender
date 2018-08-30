@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201808240008441_InitialMigration.Designer.cs">
       <DependentUpon>201808240008441_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808302001311_AddedTimeOfSendingToMessageEntity.cs" />
+    <Compile Include="Migrations\201808302001311_AddedTimeOfSendingToMessageEntity.Designer.cs">
+      <DependentUpon>201808302001311_AddedTimeOfSendingToMessageEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\TestDataSeeding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,6 +97,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201808240008441_InitialMigration.resx">
       <DependentUpon>201808240008441_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808302001311_AddedTimeOfSendingToMessageEntity.resx">
+      <DependentUpon>201808302001311_AddedTimeOfSendingToMessageEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

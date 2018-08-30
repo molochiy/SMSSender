@@ -2,8 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
-using SMSSender.Domain.Dtos;
 using SMSSender.Domain.Services;
+using SMSSender.Entities.Dtos;
 
 namespace SMSSender.Api.Controllers
 {

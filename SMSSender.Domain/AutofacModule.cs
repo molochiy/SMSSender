@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using SMSSender.Domain.Providers;
 using SMSSender.Domain.Services;
 
 namespace SMSSender.Domain
@@ -8,6 +9,7 @@ namespace SMSSender.Domain
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UserOrdersService>().As<IUserOrdersService>();
+            builder.RegisterType<SmsProviderFactory>().As<ISmsProviderFactory>();
             builder.RegisterModule<Persistence.AutofacModule>();
         }
     }

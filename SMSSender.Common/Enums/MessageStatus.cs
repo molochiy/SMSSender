@@ -2,6 +2,7 @@
 {
     public enum MessageStatus
     {
+        InProgress,
         Sending,
         Failed,
         Delivered

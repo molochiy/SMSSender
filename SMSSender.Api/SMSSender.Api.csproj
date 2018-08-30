@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutofacConfig.cs" />
+    <Compile Include="App_Start\GlobalExceptionHandler.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AutofacModule.cs" />
     <Compile Include="Controllers\SenderController.cs" />
@@ -114,9 +115,17 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SMSSender.Common\SMSSender.Common.csproj">
+      <Project>{05741B73-33E3-46FE-A2FA-585680F5460F}</Project>
+      <Name>SMSSender.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SMSSender.Domain\SMSSender.Domain.csproj">
       <Project>{f979152f-fa0e-4e12-a7d4-08846d9ef8a5}</Project>
       <Name>SMSSender.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SMSSender.Entities\SMSSender.Entities.csproj">
+      <Project>{BDC0B32C-86CA-482F-921D-10300B0A135A}</Project>
+      <Name>SMSSender.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

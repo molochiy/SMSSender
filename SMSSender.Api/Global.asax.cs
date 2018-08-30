@@ -7,7 +7,7 @@ namespace SMSSender.Api
         protected void Application_Start()
         {
             AutofacConfig.Initialize();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configure(WebApiConfig.Configure);
         }
     }
 }

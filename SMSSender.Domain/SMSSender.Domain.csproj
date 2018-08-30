@@ -41,6 +41,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
@@ -52,12 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacModule.cs" />
-    <Compile Include="Dtos\UserOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\EvenSmsProvider.cs" />
     <Compile Include="Providers\ISmsProvider.cs" />
+    <Compile Include="Providers\ISmsProviderFactory.cs" />
     <Compile Include="Providers\OddSmsProvider.cs" />
     <Compile Include="Providers\SmsProviderBase.cs" />
+    <Compile Include="Providers\SmsProviderFactory.cs" />
     <Compile Include="Services\ISmsSenderService.cs" />
     <Compile Include="Services\IUserOrdersService.cs" />
     <Compile Include="Services\SmsSenderService.cs" />
@@ -71,6 +73,10 @@
     <ProjectReference Include="..\SMSSender.Common\SMSSender.Common.csproj">
       <Project>{05741b73-33e3-46fe-a2fa-585680f5460f}</Project>
       <Name>SMSSender.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SMSSender.Entities\SMSSender.Entities.csproj">
+      <Project>{BDC0B32C-86CA-482F-921D-10300B0A135A}</Project>
+      <Name>SMSSender.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\SMSSender.Persistence\SMSSender.Persistence.csproj">
       <Project>{62118C0B-94D0-4B72-AD7C-140053E714BD}</Project>
