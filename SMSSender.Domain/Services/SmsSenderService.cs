@@ -51,12 +51,16 @@ namespace SMSSender.Domain.Services
             }
 
             message.Status = finalStatus.Status;
-            message.TimeOfSending = finalStatus.TimeOfSending;
+
+            if (finalStatus is OddProviderSmsFinalStatus oddProviderSmsFinalStatus)
+            {
+                message.TimeOfSending = oddProviderSmsFinalStatus.TimeOfSending;
+            }
 
             await _messageRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        private Task<List<string>> GetRelevantPhoneNumbers(
+        private async Task<List<string>> GetRelevantPhoneNumbers(
             DateTime? startDate,
             DateTime? endDate,
             CancellationToken cancellationToken)
@@ -75,7 +79,9 @@ namespace SMSSender.Domain.Services
                 query = query.Where(x => x.OrderDateUtc <= endDate);
             }
 
-            return query.Select(x => x.UserMobileNumber).ToListAsync(cancellationToken);
+            var phoneNumbers = await query.Select(x => x.UserMobileNumber).ToListAsync(cancellationToken).ConfigureAwait(false);
+
+            return phoneNumbers.Where(x => x.All(char.IsDigit)).ToList();
         }
 
         private async Task<SmsSendingStatus> SendSms(string msg, string phoneNumber, CancellationToken cancellationToken)
@@ -91,14 +97,21 @@ namespace SMSSender.Domain.Services
             {
                 var sentSmsInfo = await provider.SendSms(msg, cancellationToken).ConfigureAwait(false);
 
-                _messageRepository.Add(new MessageEntity
+                var messageEntity = new MessageEntity
                 {
-                    From = sentSmsInfo.From,
-                    To = sentSmsInfo.To,
                     Message = msg,
                     ExternalMessageId = sentSmsInfo.MsgId,
-                    Status = sentSmsInfo.Status
-                });
+                    Status = sentSmsInfo.Status,
+                    To = phoneNumber
+                };
+
+                if (sentSmsInfo is EvenProviderSentSmsInfo evenProviderSentSmsInfo)
+                {
+                    messageEntity.From = evenProviderSentSmsInfo.From;
+                    messageEntity.To = evenProviderSentSmsInfo.To;
+                }
+
+                _messageRepository.Add(messageEntity);
 
                 await _messageRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 

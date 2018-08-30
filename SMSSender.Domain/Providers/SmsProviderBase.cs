@@ -12,8 +12,15 @@ namespace SMSSender.Domain.Providers
         private string CallbackUrl { get; } =
             ConfigurationManager.AppSettings[ConfigKeyConstants.SmsProviderCallbackUrl];
 
-        protected string SenderPhoneNumber { get; } =
+        protected SmsProviderBase(string phoneNumber)
+        {
+            To = phoneNumber;
+        }
+
+        protected string From { get; } =
             ConfigurationManager.AppSettings[ConfigKeyConstants.SmsProviderSenderPhoneNumber];
+
+        protected string To { get; }
 
         protected abstract SmsFinalStatus GetFinalStatus();
 
