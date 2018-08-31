@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac;
 using SMSSender.Common.Exceptions;
 using SMSSender.Domain.Providers;
 using SMSSender.Entities.Dtos;
@@ -18,13 +19,15 @@ namespace SMSSender.Domain.Services
         private readonly IUserOrdersRepository _userOrdersRepository;
         private readonly IMessageRepository _messageRepository;
         private readonly ISmsProviderFactory _smsProviderFactory;
+        private readonly IComponentContext _context;
         private readonly (string StartWith, int Length) _validNumberInfo = ("0", 10);
 
-        public SmsSenderService(IUserOrdersRepository userOrdersRepository, IMessageRepository messageRepository, ISmsProviderFactory smsProviderFactory)
+        public SmsSenderService(IUserOrdersRepository userOrdersRepository, IMessageRepository messageRepository, ISmsProviderFactory smsProviderFactory, IComponentContext context)
         {
             _userOrdersRepository = userOrdersRepository;
             _messageRepository = messageRepository;
             _smsProviderFactory = smsProviderFactory;
+            _context = context;
         }
 
         public async Task<IEnumerable<SmsSendingStatus>> SendSms(string msg, DateTime? startDate, DateTime? endDate, CancellationToken cancellationToken)
@@ -51,11 +54,7 @@ namespace SMSSender.Domain.Services
             }
 
             message.Status = finalStatus.Status;
-
-            if (finalStatus is OddProviderSmsFinalStatus oddProviderSmsFinalStatus)
-            {
-                message.TimeOfSending = oddProviderSmsFinalStatus.TimeOfSending;
-            }
+            message.TimeOfSending = finalStatus.TimeOfSending;
 
             await _messageRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
@@ -105,15 +104,18 @@ namespace SMSSender.Domain.Services
                     To = phoneNumber
                 };
 
+                // create new repository with new ef context to execute in parallel
+                var messageRepository = _context.Resolve<IMessageRepository>();
+
                 if (sentSmsInfo is EvenProviderSentSmsInfo evenProviderSentSmsInfo)
                 {
                     messageEntity.From = evenProviderSentSmsInfo.From;
                     messageEntity.To = evenProviderSentSmsInfo.To;
                 }
 
-                _messageRepository.Add(messageEntity);
+                messageRepository.Add(messageEntity);
 
-                await _messageRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                await messageRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
                 smsSendingStatus.Status = sentSmsInfo.Status;
                 smsSendingStatus.MsgId = sentSmsInfo.MsgId;

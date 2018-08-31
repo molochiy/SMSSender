@@ -30,7 +30,7 @@ namespace SMSSender.Domain.Providers
 
         protected override SmsFinalStatus GetFinalStatus()
         {
-            return new EvenProviderSmsFinalStatus
+            return new SmsFinalStatus
             {
                 ExternalMessageId = lastSentMsgId,
                 Status = MessageStatus.Delivered // or MessageStatus.Failed

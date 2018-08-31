@@ -46,8 +46,6 @@
     <Compile Include="Dtos\SentSmsInfo.cs" />
     <Compile Include="Dtos\SmsSendingStatus.cs" />
     <Compile Include="Dtos\UserOrder.cs" />
-    <Compile Include="Models\OddProviderSmsFinalStatus.cs" />
-    <Compile Include="Models\EvenProviderSmsFinalStatus.cs" />
     <Compile Include="Models\SmsFinalStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

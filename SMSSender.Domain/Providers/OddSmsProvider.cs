@@ -29,7 +29,7 @@ namespace SMSSender.Domain.Providers
 
         protected override SmsFinalStatus GetFinalStatus()
         {
-            return new OddProviderSmsFinalStatus
+            return new SmsFinalStatus
             {
                 ExternalMessageId = lastSentMsgId,
                 TimeOfSending = DateTime.UtcNow,

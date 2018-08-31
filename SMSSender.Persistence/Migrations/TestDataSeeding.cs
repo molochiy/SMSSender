@@ -17,7 +17,7 @@ namespace SMSSender.Persistence.Migrations
                 },
                 new UserOrdersEntity
                 {
-                    UserMobileNumber = "0951236874",
+                    UserMobileNumber = "0951236875",
                     OrderDateUtc = new DateTime(2018, 8, 20)
                 },
                 new UserOrdersEntity
@@ -32,7 +32,7 @@ namespace SMSSender.Persistence.Migrations
                 },
                 new UserOrdersEntity
                 {
-                    UserMobileNumber = "0123456789",
+                    UserMobileNumber = "0123456788",
                     OrderDateUtc = new DateTime(2018, 6, 3)
                 }
             });
